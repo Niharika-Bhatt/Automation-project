@@ -1,0 +1,44 @@
+---
+- name: Create a group called cloudadmins
+  group:
+    name: cloudadmins
+    state: present
+
+- name: Create user accounts
+  user:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - user100
+    - user200
+    - user300
+
+- name: Add users to groups
+  user:
+    name: "{{ item }}"
+    groups: cloudadmins,wheel
+    append: yes
+  loop:
+    - user100
+    - user200
+    - user300
+
+- name: Generate SSH keys for users
+  user:
+    name: "{{ item }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: C:/Users/19057/.ssh/id_rsa
+    ssh_key_comment: "{{ item }}@{{ ansible_hostname }}"
+    ssh_key_passphrase: ""
+
+- name: Distribute SSH keys
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', 'C:/Users/19057/.ssh/id_rsa.pub') }}"
+  loop:
+    - user100
+    - user200
+    - user300
+

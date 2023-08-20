@@ -1,0 +1,33 @@
+---
+- name: Install Apache web server
+  apt:
+    name: apache2
+    state: present
+
+- name: Create vm1.html, vm2.html, vm3.html files
+  template:
+    src: templates/vm.html.j2
+    dest: "{{ item }}"
+  loop:
+    - /tmp/vm1.html
+    - /tmp/vm2.html
+    - /tmp/vm3.html
+
+- name: Copy files to remote nodes
+  copy:
+    src: /tmp/{{ item }}
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0444'
+  loop:
+    - vm1.html
+    - vm2.html
+    - vm3.html
+
+- name: Start Apache web server
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+

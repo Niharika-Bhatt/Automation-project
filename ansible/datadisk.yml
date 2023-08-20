@@ -1,0 +1,8 @@
+# datadisk.yml
+---
+- name: Configure data disks
+  hosts: 192.168.1.100
+  become: true
+  roles:
+    - datadisk-n01536074
+

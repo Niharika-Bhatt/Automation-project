@@ -1,0 +1,15 @@
+---
+- name: Append lines to /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: "19057@Niharika"
+    insertafter: EOF
+  tags: profile
+
+- name: Export TMOUT in /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: "export TMOUT=1500"
+    insertafter: EOF
+  tags: profile
+

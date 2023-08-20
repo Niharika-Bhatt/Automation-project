@@ -1,0 +1,10 @@
+---
+- name: n01536074 Playbook
+  hosts: linux
+  become: true
+  roles:
+    - datadisk-n01536074
+    - profile-n01536074
+    - user-n01536074
+    - webserver-n01536074
+

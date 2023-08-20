@@ -1,0 +1,12 @@
+# roles/datadisk-n01536074/defaults/main.yml
+datadisk_partitions:
+  - name: part1
+    size_gb: 4
+    filesystem: xfs
+    mount_path: /part1
+
+  - name: part2
+    size_gb: 5
+    filesystem: ext4
+    mount_path: /part2
+

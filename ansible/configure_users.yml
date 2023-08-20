@@ -1,0 +1,7 @@
+---
+- name: Configure User Accounts
+  hosts: 192.168.1.100
+  become: true
+  roles:
+    - user-n01536074
+

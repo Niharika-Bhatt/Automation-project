@@ -1,0 +1,25 @@
+# roles/datadisk-n01536074/tasks/main.yml
+- name: Create partitions and filesystems
+  parted:
+    device: "/dev/sdb"
+    number: "{{ item.number }}"
+    state: present
+    align: optimal
+    size: "{{ item.size_gb }}GB"
+  loop: "{{ datadisk_partitions }}"
+  register: partition_results
+
+- name: Create filesystems
+  filesystem:
+    fstype: "{{ item.filesystem }}"
+    dev: "/dev/sdb{{ item.number }}"
+  loop: "{{ datadisk_partitions }}"
+
+- name: Mount partitions
+  mount:
+    path: "{{ item.mount_path }}"
+    src: "/dev/sdb{{ item.number }}"
+    fstype: "{{ item.filesystem }}"
+    state: present
+  loop: "{{ datadisk_partitions }}"
+

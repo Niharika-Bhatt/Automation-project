@@ -1,0 +1,7 @@
+---
+- name: Apply profile-n01536074 role
+  hosts: 192.168.1.100
+  become: true
+  roles:
+    - profile-n01536074
+
